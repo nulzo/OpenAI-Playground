@@ -1,10 +1,10 @@
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, Slider, Tabs, TextArea } from "@radix-ui/themes";
 import Label from "../ui/label";
 import Description from "../ui/description";
-import { Flex, Text, Button, Separator } from '@radix-ui/themes';
+import { Button, Separator } from '@radix-ui/themes';
 import { useState } from "react";
 
-export default function DataForm() {
+export default function QueryForm() {
     const [length, setLength] = useState(50);
     const [weight, setWeight] = useState(50);
     const [chaos, setChaos] = useState(25);
@@ -18,9 +18,7 @@ export default function DataForm() {
                 </Tabs.List>
 
             </Tabs.Root>
-            <Label>Summarize</Label>
-            <TextArea placeholder="Enter text..." className="h-48 text-muted-foreground" />
-            <Description>Enter the data to be summarized</Description>
+            
             <Separator className="my-8" size="4" />
             <div className="">
                 <div className="flex justify-between">
@@ -28,11 +26,11 @@ export default function DataForm() {
                         Max Length
                     </Label>
                     <Label>
-                        {length}
+                        {length * 15}
                     </Label>
                 </div>
                 <div className="">
-                    <Slider defaultValue={[length]} />
+                    <Slider onValueChange={(value) => { setLength([value]) }} defaultValue={[length]} />
                 </div>
                 <Description>Select the maximum amount of tokens</Description>
             </div>
@@ -42,11 +40,11 @@ export default function DataForm() {
                         Control Diversity
                     </Label>
                     <Label>
-                        {weight}
+                        {weight / 100}
                     </Label>
                 </div>
                 <div className="">
-                    <Slider defaultValue={[weight]} />
+                    <Slider onValueChange={(value) => { setWeight([value]) }} defaultValue={[weight]} />
                 </div>
                 <Description>Likelihood that weighted options are considered</Description>
             </div>
@@ -56,7 +54,7 @@ export default function DataForm() {
                         Chaos
                     </Label>
                     <Label>
-                        {chaos}
+                        {chaos / 100}
                     </Label>
                 </div>
                 <div className="">

@@ -591,20 +591,20 @@ body {
   --tw-backdrop-sepia:  ;
 }
 
-.col-span-2 {
-  grid-column: span 2 / span 2;
+.col-span-3 {
+  grid-column: span 3 / span 3;
 }
 
 .col-span-6 {
   grid-column: span 6 / span 6;
 }
 
-.col-span-4 {
-  grid-column: span 4 / span 4;
+.col-span-8 {
+  grid-column: span 8 / span 8;
 }
 
-.col-span-3 {
-  grid-column: span 3 / span 3;
+.col-span-9 {
+  grid-column: span 9 / span 9;
 }
 
 .mx-4 {
@@ -612,9 +612,9 @@ body {
   margin-right: 1rem;
 }
 
-.my-4 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+.my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .my-8 {
@@ -622,12 +622,21 @@ body {
   margin-bottom: 2rem;
 }
 
+.mx-10 {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
+}
+
 .mt-3 {
   margin-top: 0.75rem;
 }
 
-.mt-4 {
-  margin-top: 1rem;
+.ml-10 {
+  margin-left: 2.5rem;
+}
+
+.mr-10 {
+  margin-right: 2.5rem;
 }
 
 .flex {
@@ -650,8 +659,8 @@ body {
   height: 100vh;
 }
 
-.w-80 {
-  width: 20rem;
+.h-full {
+  height: 100%;
 }
 
 .w-full {
@@ -668,16 +677,22 @@ body {
   width: max-content;
 }
 
-.w-\[10vw\] {
-  width: 10vw;
+.cursor-default {
+  cursor: default;
 }
 
-.grid-cols-10 {
-  grid-template-columns: repeat(10, minmax(0, 1fr));
+.appearance-none {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
 }
 
 .grid-cols-12 {
   grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.content-center {
+  align-content: center;
 }
 
 .items-center {
@@ -702,8 +717,18 @@ body {
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.space-x-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(1.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 .overscroll-none {
   overscroll-behavior: none;
+}
+
+.border {
+  border-width: 1px;
 }
 
 .border-b {
@@ -719,14 +744,38 @@ body {
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
-.py-1 {
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
+.bg-primary {
+  background-color: hsl(var(--primary));
+}
+
+.bg-secondary {
+  background-color: hsl(var(--secondary));
+}
+
+.bg-inherit {
+  background-color: inherit;
+}
+
+.bg-current {
+  background-color: currentColor;
+}
+
+.bg-transparent {
+  background-color: transparent;
+}
+
+.px-10 {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.pb-4 {
+  padding-bottom: 1rem;
 }
 
 .pl-10 {
@@ -737,40 +786,25 @@ body {
   padding-right: 2.5rem;
 }
 
-.pt-1 {
-  padding-top: 0.25rem;
-}
-
-.pt-4 {
-  padding-top: 1rem;
-}
-
 .pt-2 {
   padding-top: 0.5rem;
-}
-
-.pl-8 {
-  padding-left: 2rem;
-}
-
-.pb-4 {
-  padding-bottom: 1rem;
 }
 
 .align-middle {
   vertical-align: middle;
 }
 
-.text-gray-300\/50 {
-  color: rgb(209 213 219 / 0.5);
+.font-bold {
+  font-weight: 700;
 }
 
 .text-muted-foreground {
   color: hsl(var(--muted-foreground));
 }
 
-.text-secondary {
-  color: hsl(var(--secondary));
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
 }
 
 .opacity-50 {
