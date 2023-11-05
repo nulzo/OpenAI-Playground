@@ -1,17 +1,16 @@
-import { Select, Slider, Tabs, TextArea } from "@radix-ui/themes";
+import { Select, Slider, TextArea } from "@radix-ui/themes";
 import Label from "../ui/label";
 import Description from "../ui/description";
 import { Button, Separator } from "@radix-ui/themes";
-import SliderField from "../fields/slider";
-import TextareaField from "../fields/textarea";
 import { z } from "zod";
-import { Controller, Form, useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorField from "../fields/error";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const FormSchema = z.object({
+  system: z.string(),
   data: z
     .string({ required_error: "You must enter data!" })
     .min(1, { message: "You must enter data!" }),
@@ -22,11 +21,28 @@ const FormSchema = z.object({
   //   chaos: z.number({ required_error: "You must enter a chaos value!" }),
 });
 
+const Models = {
+  premium: [
+    "GPT-4-0613",
+    "GPT-4-0314",
+    "GPT-4"
+  ],
+  standard: [
+    "GPT-3.5-turbo-16k",
+    "GPT-3.5-turbo-0613",
+    "GPT-3.5-turbo-0301",
+    "GPT-3.5-turbo"
+  ]
+}
+
 export default function SummarizeForm({ callbackResponse }) {
+
   const [formResponse, setFormResponse] = useState({});
+
   useEffect(() => {
     callbackResponse(formResponse);
   }, [callbackResponse, formResponse]);
+
   const {
     handleSubmit,
     control,
@@ -34,6 +50,7 @@ export default function SummarizeForm({ callbackResponse }) {
   } = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      system: "",
       data: "",
       tokens: [50],
       weight: [50],
@@ -46,30 +63,32 @@ export default function SummarizeForm({ callbackResponse }) {
     return axios
       .post("https://api.openai.com/v1/chat/completions", data, headers)
       .then((res) => {
-        setFormResponse({ data: res.data.choices[0].message.content });
-        console.log(res.data.choices[0].message.content)
+        setFormResponse({ data: res.data.choices[0].message.content, loading: false });
+        console.log(res)
       })
       .catch((error) => {
         console.log(error);
-      });
+      })
+      .finally((res) => console.log(res));
   }
 
-  function onSubmit(form_data) {
+  function onSubmit(form) {
+    console.log(form)
     const data = {
       model: "gpt-3.5-turbo",
       messages: [
         {
           role: "system",
-          content: "You are an overly apologetic customer service agent.",
+          content: form.system,
         },
         {
           role: "user",
           content:
-            "Hello, I placed an order two weeks ago but it still has not shipped. I demand a refund",
+            form.data,
         },
       ],
       temperature: 1,
-      max_tokens: 256,
+      max_tokens: form.tokens[0] * 10,
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
@@ -82,18 +101,38 @@ export default function SummarizeForm({ callbackResponse }) {
       },
     };
 
-    const response = postData(header, data);
-    setFormResponse({ data: "Loading..." });
+    postData(header, data);
+    setFormResponse({ data: "", loading: true });
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Controller
+        control={control}
+        name="system"
+        render={({ field }) => (
+          <>
+            <div className="flex justify-between">
+              <Label>System Role</Label>
+            </div>
+            <TextArea
+              onChange={field.onChange}
+              placeholder="Enter your text..."
+              value={field.value}
+            />
+            {errors?.data && <ErrorField error={errors?.data.message} />}
+            <Description>
+              How do you want the agent to respond
+            </Description>
+          </>
+        )}
+      />
       <Controller
         control={control}
         name="data"
         render={({ field }) => (
           <>
             <div className="flex justify-between">
-              <Label>Your Text</Label>
+              <Label>Your Query</Label>
             </div>
             <TextArea
               onChange={field.onChange}

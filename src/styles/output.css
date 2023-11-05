@@ -595,16 +595,13 @@ body {
   grid-column: span 3 / span 3;
 }
 
-.col-span-6 {
-  grid-column: span 6 / span 6;
-}
-
-.col-span-8 {
-  grid-column: span 8 / span 8;
-}
-
 .col-span-9 {
   grid-column: span 9 / span 9;
+}
+
+.mx-10 {
+  margin-left: 2.5rem;
+  margin-right: 2.5rem;
 }
 
 .mx-4 {
@@ -622,21 +619,16 @@ body {
   margin-bottom: 2rem;
 }
 
-.mx-10 {
-  margin-left: 2.5rem;
-  margin-right: 2.5rem;
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
 }
 
 .mt-3 {
   margin-top: 0.75rem;
-}
-
-.ml-10 {
-  margin-left: 2.5rem;
-}
-
-.mr-10 {
-  margin-right: 2.5rem;
 }
 
 .flex {
@@ -655,26 +647,16 @@ body {
   height: 12rem;
 }
 
-.h-screen {
-  height: 100vh;
-}
-
 .h-full {
   height: 100%;
 }
 
+.h-screen {
+  height: 100vh;
+}
+
 .w-full {
   width: 100%;
-}
-
-.w-fit {
-  width: -moz-fit-content;
-  width: fit-content;
-}
-
-.w-max {
-  width: -moz-max-content;
-  width: max-content;
 }
 
 .cursor-default {
@@ -691,6 +673,10 @@ body {
   grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .content-center {
   align-content: center;
 }
@@ -705,6 +691,10 @@ body {
 
 .justify-end {
   justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
 }
 
 .justify-between {
@@ -727,8 +717,36 @@ body {
   overscroll-behavior: none;
 }
 
+.whitespace-pre {
+  white-space: pre;
+}
+
+.whitespace-pre-line {
+  white-space: pre-line;
+}
+
+.rounded-sm {
+  border-radius: calc(var(--radius) - 4px);
+}
+
+.rounded-md {
+  border-radius: calc(var(--radius) - 2px);
+}
+
+.rounded-lg {
+  border-radius: var(--radius);
+}
+
+.rounded {
+  border-radius: 0.25rem;
+}
+
 .border {
   border-width: 1px;
+}
+
+.border-2 {
+  border-width: 2px;
 }
 
 .border-b {
@@ -744,22 +762,6 @@ body {
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
-.bg-primary {
-  background-color: hsl(var(--primary));
-}
-
-.bg-secondary {
-  background-color: hsl(var(--secondary));
-}
-
-.bg-inherit {
-  background-color: inherit;
-}
-
-.bg-current {
-  background-color: currentColor;
-}
-
 .bg-transparent {
   background-color: transparent;
 }
@@ -767,6 +769,11 @@ body {
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
+}
+
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .py-2 {
@@ -788,6 +795,10 @@ body {
 
 .pt-2 {
   padding-top: 0.5rem;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .align-middle {
