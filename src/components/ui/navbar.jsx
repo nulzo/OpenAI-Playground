@@ -1,4 +1,4 @@
-import { Button, Heading, Separator } from "@radix-ui/themes";
+import { Button, Heading, Select, Separator } from "@radix-ui/themes";
 import { GithubIcon, SunDimIcon, SunMoonIcon } from "lucide-react";
 import { IconBrandOpenai } from "@tabler/icons-react";
 
@@ -8,7 +8,7 @@ export default function NavBar() {
       <div className="h-14 border-b border-black flex justify-between align-center items-center align-middle">
         <div className="pl-10 align-middle flex space-x-2">
           <div className="flex align-middle items-center">
-            <IconBrandOpenai size={32} stroke={1}/>
+            <IconBrandOpenai size={32} stroke={1} />
           </div>
           <Separator orientation="vertical" size={4} />
           <div>
@@ -18,16 +18,19 @@ export default function NavBar() {
             </Heading>
           </div>
         </div>
-        <div className="pr-10 flex space-x-6">
-          <div>
-            <Button variant="ghost" color="gray">
-              <GithubIcon />
-            </Button>
-          </div>
-          <div>
-            <Button variant="ghost" color="gray">
-              <SunMoonIcon />
-            </Button>
+        <div className="pr-10 flex align-center content-center items-center ">
+          <Separator orientation="vertical" size={"2"} className="ml-8 mr-4" />
+          <div className="pl-4 flex space-x-4">
+            <div>
+              <Button variant="ghost" color="gray">
+                <GithubIcon />
+              </Button>
+            </div>
+            <div>
+              <Button variant="ghost" color="gray">
+                <SunMoonIcon />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
