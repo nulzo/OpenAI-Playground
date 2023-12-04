@@ -112,7 +112,7 @@ export default function LoadForm({ callbackResponse }) {
                 },
             ],
             temperature: form.chaos[0],
-            max_tokens: 5000,
+            max_tokens: form.tokens[0],
             top_p: form.nucleic[0],
             frequency_penalty: 0,
             presence_penalty: 0,
