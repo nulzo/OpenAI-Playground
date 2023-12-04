@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import ErrorField from "../fields/error";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import ToolIcon from "../ui/ToolIcon";
 
 const FormSchema = z.object({
   system: z.string(),
@@ -15,10 +16,11 @@ const FormSchema = z.object({
     .string({ required_error: "You must enter data!" })
     .min(1, { message: "You must enter data!" }),
   tokens: z.number().array(),
-  weight: z.number().array(),
+  nucleic: z.number().array(),
   chaos: z.number().array(),
   model: z.string({ required_error: "You must enter a model!" }),
-  //   chaos: z.number({ required_error: "You must enter a chaos value!" }),
+  frequency_penalty: z.number().array(),
+  presence_penalty: z.number().array()
 });
 
 const Models = {
@@ -52,10 +54,12 @@ export default function SummarizeForm({ callbackResponse }) {
     defaultValues: {
       system: "",
       data: "",
-      tokens: [50],
-      weight: [50],
-      chaos: [50],
+      tokens: [256],
+      nucleic: [1],
+      chaos: [1],
       model: "gpt3",
+      frequency_penalty: [0],
+      presence_penalty: [0]
     },
   });
 
@@ -116,12 +120,11 @@ export default function SummarizeForm({ callbackResponse }) {
             </div>
             <TextArea
               onChange={field.onChange}
-              placeholder="Enter your text..."
+              placeholder="You are a helpful assistant."
               value={field.value}
             />
-            {errors?.data && <ErrorField error={errors?.data.message} />}
+            {errors?.system && <ErrorField error={errors?.system.message} />}
             <Description>
-              How do you want the agent to respond
             </Description>
           </>
         )}
@@ -136,86 +139,149 @@ export default function SummarizeForm({ callbackResponse }) {
             </div>
             <TextArea
               onChange={field.onChange}
-              placeholder="Enter your text..."
+              placeholder="What are the consequences of runaway prompts in LLM's?"
               value={field.value}
+              className="h-[10em]"
             />
             {errors?.data && <ErrorField error={errors?.data.message} />}
             <Description>
-              Enter the text you would like to be answered
             </Description>
           </>
         )}
       />
       <Separator className="my-8" size="4" />
-      <Controller
-        control={control}
-        name="tokens"
-        render={({ field }) => (
-          <>
-            <div className="flex justify-between">
-              <Label>Max Length</Label>
-              <Label>{field.value * 20}</Label>
+      <div className="space-y-2">
+        <Controller
+          control={control}
+          name="tokens"
+          render={({ field }) => (
+            <div className="py-2">
+              <div className="flex justify-between">
+                <div className="flex space-x-2 align-middle items-center content-center">
+                  <Label>Max Length</Label>
+                  <ToolIcon content="The maximum number of tokens to generate (shared between the prompt and completion)." />
+                </div>
+                <Label>{field.value}</Label>
+              </div>
+              <Slider
+                onValueChange={field.onChange}
+                value={field?.value}
+                label={field.name}
+                max={2000}
+                min={1}
+                defaultValue={field.value}
+              />
+              {errors?.tokens && <ErrorField error={errors?.tokens.message} />}
             </div>
-            <Slider
-              onValueChange={field.onChange}
-              value={field?.value}
-              label={field.name}
-              defaultValue={field.value}
-            />
-            <Description>Select the maximum amount of tokens</Description>
-          </>
-        )}
-      />
-      <Separator className="my-8" size="4" />
-      <Controller
-        control={control}
-        name="weight"
-        render={({ field }) => (
-          <>
-            <div className="flex justify-between">
-              <Label>Control Diversity</Label>
-              <Label>{field.value / 100}</Label>
+          )}
+        />
+        <Controller
+          control={control}
+          name="nucleic"
+          render={({ field }) => (
+            <div className="py-2">
+              <div className="flex justify-between">
+                <div className="flex space-x-2 align-middle items-center content-center">
+                  <Label>Nucelic Sampling</Label>
+                  <ToolIcon content="Controls diversity. 0.5 results in half of all likelihood-weighted options are considered." />
+                </div>
+                <Label>{field.value}</Label>
+              </div>
+              <Slider
+                onValueChange={field.onChange}
+                value={field?.value}
+                label={field.name}
+                max={1}
+                min={0}
+                step={0.01}
+                defaultValue={field.value}
+              />
+              {errors?.nucleic && <ErrorField error={errors?.nucleic.message} />}
             </div>
-            <Slider
-              onValueChange={field.onChange}
-              value={field?.value}
-              label={field.name}
-              defaultValue={field.value}
-            />
-            <Description>
-              Likelihood that weighted options are considered
-            </Description>
-          </>
-        )}
-      />
-      <Separator className="my-8" size="4" />
-      <Controller
-        control={control}
-        name="tokens"
-        render={({ field }) => (
-          <>
-            <div className="flex justify-between">
-              <Label>Chaos</Label>
-              <Label>{field.value / 100}</Label>
+          )}
+        />
+        <Controller
+          control={control}
+          name="chaos"
+          render={({ field }) => (
+            <div className="py-2">
+              <div className="flex justify-between">
+                <div className="flex space-x-2 align-middle items-center content-center">
+                  <Label>Chaos</Label>
+                  <ToolIcon content="Lowering results in less random completions. Model becomes determinstic and repetitive as the value approaches zero." />
+                </div>
+                <Label>{field.value}</Label>
+              </div>
+              <Slider
+                onValueChange={field.onChange}
+                value={field?.value}
+                label={field.name}
+                min={0}
+                max={2}
+                step={0.01}
+                defaultValue={field.value}
+              />
+              {errors?.chaos && <ErrorField error={errors?.chaos.message} />}
             </div>
-            <Slider
-              onValueChange={field.onChange}
-              value={field?.value}
-              label={field.name}
-              defaultValue={field.value}
-            />
-            <Description>
-              Lowering results in less random completions
-            </Description>
-          </>
-        )}
-      />
+          )}
+        />
+        <Controller
+          control={control}
+          name="frequency_penalty"
+          render={({ field }) => (
+            <div className="py-2">
+              <div className="flex justify-between">
+                <div className="flex space-x-2 align-middle items-center content-center">
+                  <Label>Frequency Penalty</Label>
+                  <ToolIcon content="How much to penalize new tokens based on their existing frequency in the text." />
+                </div>
+                <Label>{field.value}</Label>
+              </div>
+              <Slider
+                onValueChange={field.onChange}
+                value={field?.value}
+                label={field.name}
+                min={0}
+                max={2}
+                step={0.01}
+                defaultValue={field.value}
+              />
+              {errors?.frequency_penalty && <ErrorField error={errors?.frequency_penalty.message} />}
+            </div>
+          )}
+        />
+        <Controller
+          control={control}
+          name="presence_penalty"
+          render={({ field }) => (
+            <div className="py-2">
+              <div className="flex justify-between">
+                <div className="flex space-x-2 align-middle items-center content-center">
+                  <Label>Presence Penalty</Label>
+                  <ToolIcon content="How much to penalize new tokens based on how much they appear in the text." />
+                </div>
+                <Label>{field.value}</Label>
+              </div>
+              <Slider
+                onValueChange={field.onChange}
+                value={field?.value}
+                label={field.name}
+                min={0}
+                max={2}
+                step={0.01}
+                defaultValue={field.value}
+              />
+              {errors?.presence_penalty && <ErrorField error={errors?.presence_penalty.message} />}
+            </div>
+          )}
+        />
+      </div>
       <Separator className="my-8" size="8" />
       <Controller
         control={control}
         name="model"
         render={({ field }) => (
-          <>
+          <div className="py-2">
             <Label>Select a GPT model</Label>
             <div className="w-full">
               <Select.Root
@@ -239,13 +305,14 @@ export default function SummarizeForm({ callbackResponse }) {
               </Select.Root>
             </div>
             <Description>The model used to run the query</Description>
-          </>
+          </div>
         )}
       />
+
       <Separator className="my-8" size="4" />
       <div className="flex mt-3 space-x-2 justify-end">
-        <Button variant="outline">Clear</Button>
-        <Button type="submit">Submit Query</Button>
+        <Button variant="outline" color="red" className="">Clear</Button>
+        <Button type="submit" variant="outline" onClick={() => { console.log(errors) }}>Submit Query</Button>
       </div>
     </form>
   );

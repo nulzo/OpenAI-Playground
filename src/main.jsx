@@ -15,6 +15,7 @@ import {
   redDark,
   greenDark,
 } from '@radix-ui/colors';
+import { ThemeProvider } from "./components/fields/ThemeProvider";
 
 const queryClient = new QueryClient();
 
@@ -38,15 +39,10 @@ const darkTheme = {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <QueryClientProvider client={queryClient}>
-    <Theme
-      accentColor="indigo"
-      grayColor="slate"
-      panelBackground="solid"
-      scaling="100%"
-      radius="medium"
-      appearance="dark"
-    >
-      <Root />
-    </Theme>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      <Theme appearance="dark" accentColor="cyan" grayColor="mauve" radius="small">
+        <Root />
+      </Theme>
+    </ThemeProvider>
   </QueryClientProvider>
 );
