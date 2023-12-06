@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
@@ -8,9 +9,9 @@ app.use(express.json());
 
 const db = mysql.createConnection({
     host: "cloudcomputingfinaldatabase.cnh8dbnhfkkc.us-east-1.rds.amazonaws.com",
-    user: "admin",
-    password: "Buffalowing!1",
-    database: "CloudComputingFinalDatabase"
+    user: "Puffin",
+    password: "LeastSecurePuffin",
+    database: "ai-db"
 });
 
 db.connect((err) => {
