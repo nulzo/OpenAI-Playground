@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-    host: "cloudcomputingfinaldatabase.cnh8dbnhfkkc.us-east-1.rds.amazonaws.com",
+    host: "ai-db.cnh8dbnhfkkc.us-east-1.rds.amazonaws.com",
     user: "Puffin",
     password: "LeastSecurePuffin",
     database: "ai-db"
@@ -39,7 +39,7 @@ app.post('/submit-report', (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 8002;
+const PORT = process.env.PORT || 3306;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
