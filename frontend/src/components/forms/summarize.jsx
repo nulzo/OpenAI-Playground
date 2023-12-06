@@ -79,7 +79,7 @@ export default function SummarizeForm({ callbackResponse }) {
   function onSubmit(form) {
     console.log(form)
     const data = {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-1106",
       messages: [
         {
           role: "system",
@@ -92,7 +92,7 @@ export default function SummarizeForm({ callbackResponse }) {
         },
       ],
       temperature: 1,
-      max_tokens: form.tokens[0] * 10,
+      max_tokens: form.tokens[0],
       top_p: 1,
       frequency_penalty: 0,
       presence_penalty: 0,
@@ -167,7 +167,7 @@ export default function SummarizeForm({ callbackResponse }) {
                 onValueChange={field.onChange}
                 value={field?.value}
                 label={field.name}
-                max={2000}
+                max={4096}
                 min={1}
                 defaultValue={field.value}
               />
