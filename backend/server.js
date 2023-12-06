@@ -11,7 +11,7 @@ const db = mysql.createConnection({
     host: "ai-db.cnh8dbnhfkkc.us-east-1.rds.amazonaws.com",
     user: "Puffin",
     password: "LeastSecurePuffin",
-    database: "ai-db"
+    database: "ai_db"
 });
 
 db.connect((err) => {
