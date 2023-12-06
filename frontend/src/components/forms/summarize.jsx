@@ -64,11 +64,12 @@ export default function SummarizeForm({ callbackResponse }) {
   });
 
   async function postData(headers, data) {
+    console.log("DATA: ", data);
     return axios
       .post("https://api.openai.com/v1/chat/completions", data, headers)
       .then((res) => {
-        setFormResponse({ data: res.data.choices[0].message.content, loading: false });
-        console.log(res)
+        setFormResponse({ data: res.data.choices[0].message.content, query: data.messages[1].content, role: res.data.choices[0].message.role, loading: false });
+        console.log(res);
       })
       .catch((error) => {
         console.log(error);
@@ -77,7 +78,6 @@ export default function SummarizeForm({ callbackResponse }) {
   }
 
   function onSubmit(form) {
-    console.log(form)
     const data = {
       model: "gpt-3.5-turbo-1106",
       messages: [
@@ -101,7 +101,7 @@ export default function SummarizeForm({ callbackResponse }) {
     const header = {
       headers: {
         Authorization:
-          "Bearer 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",
+          "Bearer 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",
       },
     };
 

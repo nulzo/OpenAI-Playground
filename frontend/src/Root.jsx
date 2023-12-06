@@ -8,11 +8,36 @@ import { IconRobot } from "@tabler/icons-react";
 import { PulseLoader } from "react-spinners";
 import { HeartIcon } from "lucide-react";
 import LoadForm from "./components/forms/load";
+import axios from "axios";
 
 
 export default function Root() {
-    const [response, setResponse] = useState({ data: "", loading: false });
+    const [response, setResponse] = useState({ data: "", query: "", role: "", loading: false });
     const [currentTab, setCurrentTab] = useState("query");
+
+    const handleSubmit = async (e) => {
+        try {
+            console.log(response)
+            const res = await axios.post('http://localhost:9999/save', {
+                "system_prompt": response.role,
+                "query_prompt": response.query,
+                "response": response.data
+            });
+
+            if (res.status === 200) {
+                if (res.data === 'Error') {
+                    console.log('Server returned an error:', res.data);
+                } else {
+                    console.log('Server response:', res.data);
+                }
+                setIsValid(true);
+            } else {
+                console.error('Unexpected response status:', res.status);
+            }
+        } catch (error) {
+            console.error('Error submitting report:', error.message);
+        }
+    };
 
     const wrapperSetResponse = useCallback(val => {
         setResponse(val);
@@ -95,7 +120,7 @@ export default function Root() {
                                 <div className="flex justify-end space-x-2">
                                     <div>
                                         {/* <Button size="3" variant="outline" color="pink">Saved <HeartIcon size="16" className="px-0 p-0" /></Button> */}
-                                        <Button size="2" variant="outline">Save</Button>
+                                        <Button size="2" variant="outline" onClick={() => handleSubmit()}>Save</Button>
                                     </div>
                                     <div>
                                         <Button size="2" variant="outline">Copy</Button>

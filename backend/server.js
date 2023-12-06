@@ -22,7 +22,7 @@ db.connect((err) => {
     }
 });
 
-app.post('/submit-report', (req, res) => {
+app.post('/save', (req, res) => {
     const { system_prompt, query_prompt, response } = req.body;
     console.log('Received values:', { system_prompt, query_prompt, response });
     const sql = "INSERT INTO reports (`system_prompt`, `query_prompt`, `response`) VALUES (?, ?, ?, ?)";
