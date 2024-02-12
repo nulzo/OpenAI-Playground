@@ -52,12 +52,12 @@ export default function SummarizeForm({ callbackResponse }) {
   } = useForm({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      system: "",
+      system: "You are a computer science studying. You are writing a paper in a semi-formal tone. In the tone of a senior computer science student who is talking about their internship, answer all the questions given to you.",
       data: "",
       tokens: [256],
       nucleic: [1],
       chaos: [1],
-      model: "gpt3",
+      model: "gpt-4",
       frequency_penalty: [0],
       presence_penalty: [0]
     },
@@ -79,7 +79,7 @@ export default function SummarizeForm({ callbackResponse }) {
 
   function onSubmit(form) {
     const data = {
-      model: "gpt-3.5-turbo-1106",
+      model: "gpt-4",
       messages: [
         {
           role: "system",
@@ -101,7 +101,7 @@ export default function SummarizeForm({ callbackResponse }) {
     const header = {
       headers: {
         Authorization:
-          "Bearer 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",
+          "Bearer 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",
       },
     };
 

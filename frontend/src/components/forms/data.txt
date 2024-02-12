@@ -1,0 +1,31 @@
+You are interning at the brand Conagra Foods. Your position is as a software development intern. Explain what conagra is and what your position entails. In your position, you use django for full stack development. Provide a brief summary of the organization and their expectations of you as an intern. Identify the
+organization’s goals, and to the appropriate extent, the organization’s computational infrastructure as it affected your work.
+
+
+In order to address the requirements for the written report and oral presentation for my internship, I would break the paper down into the following sections:
+
+1. Introduction
+- Brief overview of the internship experience
+- Overview of the organization and their expectations
+
+2. Internship Goals and Organizational Overview
+- Summary of the organization and their goals
+- Description of the organization’s computational infrastructure
+- The impact of the organization’s goals on my work
+
+3. Student’s Role in Goal Achievement
+- Description of the work carried out for the organization
+- Level of autonomy and direction in the activities
+- Specific hardware and software used in achieving the organization’s goals
+
+4. Relevance of Academic Background in Internship
+- Evaluation of the value of courses or topics in completing the internship
+- Identification of additional courses or topics that would have been helpful
+
+5. Conclusion
+- Summary of the internship experience
+- Evaluation of the internship's success
+- Criteria used for evaluating success
+- How the internship has enhanced my academic experience in Computer Science
+
+By organizing the paper in this manner, I will be able to effectively address the various subjects outlined for the written report and oral presentation of my internship. Each section will provide a comprehensive overview of the internship experience, as well as an analysis of the contributions made and the impact on my academic development.

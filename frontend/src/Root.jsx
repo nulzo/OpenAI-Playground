@@ -2,13 +2,13 @@ import NavBar from "./components/ui/navbar";
 import SummarizeForm from "./components/forms/summarize";
 import { Avatar, Box, Button, Card, Heading, Select, Separator, Tabs } from "@radix-ui/themes";
 import { useCallback, useState } from "react";
-import HashLoader from "react-spinners/HashLoader";
 import { indigo, orange, cyan } from "@radix-ui/colors";
 import { IconRobot } from "@tabler/icons-react";
 import { PulseLoader } from "react-spinners";
 import { HeartIcon } from "lucide-react";
 import LoadForm from "./components/forms/load";
 import axios from "axios";
+import SavedItems from "./components/forms/SavedItems";
 
 
 export default function Root() {
@@ -37,6 +37,13 @@ export default function Root() {
         } catch (error) {
             console.error('Error submitting report:', error.message);
         }
+
+        localStorage.setItem(`query-${response.data}`, JSON.stringify({
+            "system_prompt": response.role,
+            "query_prompt": response.query,
+            "response": response.data
+        }));
+        console.log(localStorage)
     };
 
     const wrapperSetResponse = useCallback(val => {
@@ -72,6 +79,11 @@ export default function Root() {
                         {currentTab === 'load' &&
                             <div className="mt-4">
                                 <LoadForm callbackResponse={wrapperSetResponse} />
+                            </div>
+                        }
+                        {currentTab === 'saved' &&
+                            <div className="mt-4">
+                                <SavedItems callbackResponse={wrapperSetResponse} />
                             </div>
                         }
                     </div>

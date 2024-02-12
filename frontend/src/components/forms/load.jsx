@@ -69,7 +69,7 @@ export default function LoadForm({ callbackResponse }) {
         return axios
             .post("https://api.openai.com/v1/chat/completions", data, headers)
             .then((res) => {
-                setFormResponse({ data: res.data.choices[0].message.content, loading: false });
+                setFormResponse({ data: res.data.choices[0].message.content, query: data.messages[1].content, role: res.data.choices[0].message.role, loading: false });
                 console.log(res)
             })
             .catch((error) => {
@@ -121,7 +121,7 @@ export default function LoadForm({ callbackResponse }) {
         const header = {
             headers: {
                 Authorization:
-                    "Bearer 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",
+                    "Bearer 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",
             },
         };
 
